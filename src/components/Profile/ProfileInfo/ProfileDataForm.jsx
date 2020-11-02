@@ -55,21 +55,8 @@ const ProfileDataForm = (props) => {
 }
 
 const ProfileDataReduxForm = reduxForm({
-    // a unique name for the form
     form: 'ProfileDataForm'
 })(ProfileDataForm)
 
 
 export default ProfileDataReduxForm
-
-
-
-{/* 
-//   <div>
-//                 <Field name='email' component={Input} type='text' placeholder='Login' validate={[required]}/>
-//             </div>
-//             <div>
-//             <Field name='password' component={Input} placeholder='Password' validate={[required]} type='password'/>
-//             </div>
-//             <div>
-//             <Field name='rememberMe' component={Input} type='checkbox' /> Remember Me */}

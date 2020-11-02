@@ -7,6 +7,7 @@ export const required = (value) => {
     return undefined
 }
 
+
 export const maxLengthCreator = (lengthNumber) => (value) => {
     if (value.length > lengthNumber) {
         return `Message max symbol is ${lengthNumber}`

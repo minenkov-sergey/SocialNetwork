@@ -3,4 +3,25 @@
     color: red;
     border: 1px;
     font-size: large;
+    margin: 10px 0px
+}
+.paper {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+.avatar {
+    margin: 1px;
+    background-color: 
+  }
+.form {
+    width: 100%;
+    margin-top: 10px;
+  }
+.submit {
+    margin: 3px 0px 2px 0px;
+  }
+.gridCont {
+    margin-top: 5px;
 }
