@@ -17,6 +17,7 @@ const Music = React.lazy(() => import('./components/Music/Music'));
 const NewsContainer = React.lazy(() => import('./components/News/NewsContainer'));
 
 
+'bla'
 class App extends React.Component {
 
   catchAllUnhandledErrors = () => {
