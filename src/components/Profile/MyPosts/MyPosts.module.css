@@ -1,0 +1,11 @@
+.myposts {
+    padding: 20px;
+    margin: 10px;
+}
+.postbox {
+    padding: 10px;
+    float: right;
+}
+.textarea {
+    width: 400px;
+}

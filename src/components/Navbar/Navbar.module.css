@@ -1,0 +1,31 @@
+.navbar {
+    grid-area: navbar;
+    background-color:#334a5c;
+    padding: 20px;
+    margin: 15px;
+    font-size: 30px;
+    border-radius: 5px;
+  }
+.menubar img {
+  width: 25px;
+  color: #b0c4d4;
+  margin-right: 10px;
+  margin-bottom: -2px;
+}
+.item {
+  color: #b0c4d4;
+  text-decoration: none;
+}
+.activeLink {
+  color: #6a88a1;
+  text-decoration: none;
+}
+
+a {
+  color: #b0c4d4;
+  text-decoration: none;
+}
+.friendsBar {
+  background-color:#334a5c;
+  margin-top: 50px;
+}

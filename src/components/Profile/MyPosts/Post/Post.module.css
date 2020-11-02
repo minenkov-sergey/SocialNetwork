@@ -1,0 +1,13 @@
+.item {
+    color:brown;
+    padding: 20px;
+    
+  }
+  .gold {
+    color: gold;
+  }
+.item img {
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+}

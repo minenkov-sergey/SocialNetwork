@@ -1,0 +1,26 @@
+
+.activePage {
+    font-size: large;
+    font-style: bold;
+}
+.rightButton {
+    background: none;
+    border: none;
+    font-size: 15px;
+    text-decoration:none;
+    outline: none;
+    color:#334a5c;
+    margin: 0;
+    padding: 0;
+}
+
+.leftButton {
+    background: none;
+    border: none;
+    font-size: 15px;
+    text-decoration:none;
+    outline: none;
+    color:#334a5c;
+    margin: 0;
+    padding: 0;
+}

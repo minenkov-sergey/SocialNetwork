@@ -1,0 +1,12 @@
+.formcomponent.error input,
+.formcomponent textarea{
+    width: 400px;
+}
+.formcomponent.error textarea {
+    border-width: 3px;
+    border-color:red;
+    width: 400px;
+}
+.formcomponent.error span {
+    color: red;
+}

@@ -1,0 +1,69 @@
+.userInfo{
+    background-color: #ecf0f1;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: grid;
+    grid-template-columns: 2fr 8fr 1fr;
+}
+.avbut{
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+}
+.avatar img{
+    width: 100px;
+    border-radius: 50px;
+}
+.followButton{
+
+}
+.followButton button{
+    background: #334a5c;
+    color: #b0c4d4;
+    font-size: 20px;
+    border-radius: 5px;
+}
+.namestatus{
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+.name{
+
+}
+.status{
+
+}
+.location{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin: 10px;
+}
+.contry{
+
+}
+.city {
+
+}
+.moreUsersButton {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.moreUsersButton button {
+    background: #334a5c;
+    color: #b0c4d4;
+    font-size: 20px;
+    border-radius: 5px;
+    width: 100px;
+}
+
+.activePage{
+    font-size: large;
+    font-style: bold;
+}

@@ -1,0 +1,24 @@
+.pageHeader{
+border-radius: 3px;
+width: 100%;
+text-align: center;
+background-color: #334a5c;
+color: #b0c4d4;
+font-size: 36px;
+}
+.newsRows {
+    background-color: #ecf0f1;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.newsHeader {
+    background-color: #d0d5d6a4;
+    font-size: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.newsText{
+    font-size: 16px;
+    margin-top: px;
+    margin-bottom: px;
+}

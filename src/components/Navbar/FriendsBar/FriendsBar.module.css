@@ -1,0 +1,15 @@
+.content {
+    margin-top: ;
+    color: #b0c4d4;
+    display: table-row;
+    background-color: #334a5c;
+
+    
+}
+.bestFriendsitem {
+    margin-top: 15px;
+    display: flex;
+}
+.h2 {
+    font-size: 30px;
+}
