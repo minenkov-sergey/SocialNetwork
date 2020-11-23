@@ -21,11 +21,9 @@ let reducersBunch = combineReducers({
     appData: appDataReducer
 });
 
-//let store = createStore (reducersBunch, applyMiddleware(thunkMiddleWare))
-
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore (reducersBunch, composeEnhancers(applyMiddleware(thunkMiddleWare)))
+const store = createStore(reducersBunch, composeEnhancers(applyMiddleware(thunkMiddleWare)))
 
 window.store = store
 

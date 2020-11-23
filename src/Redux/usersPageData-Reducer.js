@@ -1,5 +1,5 @@
-
 import { API } from './../api/api';
+
 let initialState = {
     usersData: [],
     pageSize: 30,
@@ -7,9 +7,7 @@ let initialState = {
     currentPage: 1,
     isFetching: false,
     isButtonDisabled: []
-
 }
-
 
 const usersPageDataReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -71,48 +69,48 @@ const usersPageDataReducer = (state = initialState, action) => {
     }
 }
 
-export const setUsersThunkCreator = (currentPage, pageSize) => {
+export const setUsersTC = (currentPage, pageSize) => {
     return async (dispatch) => {
-        dispatch(toggleIsFetching(true))
-        dispatch(setCurrentPage(currentPage))
+        dispatch(toggleIsFetchingAC(true))
+        dispatch(setCurrentPageAC(currentPage))
         let response = await API.getUsers(currentPage, pageSize)
-        dispatch(setUsers(response.items))
-        dispatch(setTotalUsersCount(response.totalCount))
-        dispatch(toggleIsFetching(false))
+        dispatch(setUsersAC(response.items))
+        dispatch(setTotalUsersCountAC(response.totalCount))
+        dispatch(toggleIsFetchingAC(false))
     }
 }
 
 
 export const unFollowTC = (userId) => {
     return async (dispatch) => {
-        dispatch(buttonDisable(true, userId))
+        dispatch(buttonDisableAC(true, userId))
         let response = await API.getUnFollow(userId)
-        if (response.resultCode === 0) { dispatch(setUnFollow(userId)) }
-        dispatch(buttonDisable(false, userId))
+        if (response.resultCode === 0) { dispatch(setUnFollowAC(userId)) }
+        dispatch(buttonDisableAC(false, userId))
     }
 }
 
 export const followTC = (userId) => {
     return async (dispatch) => {
-        dispatch(buttonDisable(true, userId))
+        dispatch(buttonDisableAC(true, userId))
         let response = await API.getFollow(userId)
-        if (response.resultCode === 0) { dispatch(setFollow(userId)) }
-        dispatch(buttonDisable(false, userId))
+        if (response.resultCode === 0) { dispatch(setFollowAC(userId)) }
+        dispatch(buttonDisableAC(false, userId))
     }
 }
 
-export const setFollow = (userId) => ({ type: 'FOLLOW', userId })
+export const setFollowAC = (userId) => ({ type: 'FOLLOW', userId })
 
-export const setUnFollow = (userId) => ({ type: 'UNFOLLOW', userId })
+export const setUnFollowAC = (userId) => ({ type: 'UNFOLLOW', userId })
 
-export const setUsers = (users) => ({ type: 'SET_USERS', users })
+export const setUsersAC = (users) => ({ type: 'SET_USERS', users })
 
-export const setCurrentPage = (currentPage) => ({ type: 'SET_PAGE', currentPage })
+export const setCurrentPageAC = (currentPage) => ({ type: 'SET_PAGE', currentPage })
 
-export const setTotalUsersCount = (totalCount) => ({ type: 'SET_TOTALCOUNT', totalCount })
+export const setTotalUsersCountAC = (totalCount) => ({ type: 'SET_TOTALCOUNT', totalCount })
 
-export const toggleIsFetching = (isFetching) => ({ type: 'TOGGLE_ISFETCHING', isFetching })
+export const toggleIsFetchingAC = (isFetching) => ({ type: 'TOGGLE_ISFETCHING', isFetching })
 
-export const buttonDisable = (toggle, userId) => ({ type: 'BUTTON-DISABLE', toggle, userId })
+export const buttonDisableAC = (toggle, userId) => ({ type: 'BUTTON-DISABLE', toggle, userId })
 
 export default usersPageDataReducer;

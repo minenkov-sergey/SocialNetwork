@@ -1,4 +1,3 @@
-
 let initialState = {
     bestFriendsData: [
         { id: 1, name: 'Andrew' },

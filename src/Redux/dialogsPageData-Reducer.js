@@ -1,22 +1,20 @@
-
-
 let initialState = {
-        dialogsNamesData: [
-            { id: 1, name: 'Dima' },
-            { id: 2, name: 'Andrey' },
-            { id: 3, name: 'Sasha' },
-            { id: 4, name: 'Viktor' },
-            { id: 5, name: 'Anton' },
-            { id: 6, name: 'Valera' }],
-        messagesData: [
-            { id: 1, message: 'Hi' },
-            { id: 2, message: 'How are you' },
-            { id: 3, message: 'Yo' },
-            { id: 4, message: 'Yo' },
-            { id: 5, message: 'Hi' }]
-    }
+    dialogsNamesData: [
+        { id: 1, name: 'Dima' },
+        { id: 2, name: 'Andrey' },
+        { id: 3, name: 'Sasha' },
+        { id: 4, name: 'Viktor' },
+        { id: 5, name: 'Anton' },
+        { id: 6, name: 'Valera' }],
+    messagesData: [
+        { id: 1, message: 'Hi' },
+        { id: 2, message: 'How are you' },
+        { id: 3, message: 'Yo' },
+        { id: 4, message: 'Yo' },
+        { id: 5, message: 'Hi' }]
+}
 
-const dialogsPageDataReducer = (state=initialState, action) => {
+const dialogsPageDataReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'ADD-MESSAGE': {
             let idLengthArray = state.messagesData.length + 1
@@ -34,7 +32,7 @@ const dialogsPageDataReducer = (state=initialState, action) => {
     }
 }
 
-export const addMessageActionCreator = (value) => {
+export const addMessageAC = (value) => {
     return { type: 'ADD-MESSAGE', value }
 }
 

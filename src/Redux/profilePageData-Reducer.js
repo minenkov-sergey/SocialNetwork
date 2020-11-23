@@ -1,6 +1,6 @@
-
 import { API } from './../api/api';
 import { stopSubmit } from 'redux-form';
+
 let initialState = {
     newpostProfilePageData: '',
     profilePageData: [
@@ -59,7 +59,7 @@ export const getUserProfileTC = (userId) => {
     return (dispatch) => {
         API.getProfile(userId)
             .then(response => {
-                dispatch(setUserProfile(response.data))
+                dispatch(setUserProfileAC(response.data))
             })
     }
 }
@@ -67,7 +67,7 @@ export const getProfileStatusTC = (userId) => {
     return (dispatch) => {
         API.getProfileStatus(userId)
             .then(response => {
-                dispatch(setProfileStatus(response.data))
+                dispatch(setProfileStatusAC(response.data))
             })
     }
 }
@@ -85,9 +85,9 @@ export const updateProfileStatusTC = (status) => async (dispatch) => {
     try {
         const response = await API.updateProfileStatus(status)
         if (response.data.resultCode === 0) {
-            dispatch(setProfileStatus(status))
+            dispatch(setProfileStatusAC(status))
         }
-    } 
+    }
     catch (error) { alert(error.message) }
 }
 
@@ -113,13 +113,16 @@ export const setSaveAvatarAC = (avatars) => {
     return { type: 'SET-AVATAR', avatars }
 }
 
-export const setProfileStatus = (status) => {
-    return { type: 'SET-STATUS', status: status }
+export const setProfileStatusAC = (status) => {
+    return { type: 'SET-STATUS', status }
 }
 
-export const addPostActionCreator = (value) => {
+export const addPostAC = (value) => {
     return { type: 'ADD-POST', value }
 }
-export const setUserProfile = (profile) => ({ type: 'SET-USER-PROFILE', profile })
+
+export const setUserProfileAC = (profile) => {
+    return {type: 'SET-USER-PROFILE', profile }
+}
 
 export default profilePageDataReducer;

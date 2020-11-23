@@ -1,4 +1,3 @@
-
 import { API } from './../api/api';
 import { stopSubmit } from 'redux-form';
 
@@ -12,15 +11,16 @@ let initialState = {
 
 
 const authDataReducer = (state = initialState, action) => {
+
     switch (action.type) {
         case 'SET_AUTH_DATA': {
-            return { 
+            return {
                 ...state,
                 ...action.authData
             }
         }
         case 'SET_CAPTCHA': {
-            return { 
+            return {
                 ...state,
                 captchaUrl: action.captchaUrl
             }
@@ -30,35 +30,35 @@ const authDataReducer = (state = initialState, action) => {
     }
 }
 
-export const setAuthData = (id, email, login, isLogged) => ({ type: 'SET_AUTH_DATA', authData: {id, email, login, isLogged }})
+export const setAuthDataAC = (id, email, login, isLogged) => ({ type: 'SET_AUTH_DATA', authData: { id, email, login, isLogged } })
 
 export const setCaptchaAC = (captchaUrl) => ({ type: 'SET_CAPTCHA', captchaUrl })
 
 
-
-
 export const getAuthDataTC = () => {
     return (dispatch) => {
-       return API.authMe().then(response => {
-            if (response.data.resultCode===0) {
-                let {id, email, login} = response.data.data
-        dispatch(setAuthData(id, email, login, true))}
-    })
+        return API.authMe().then(response => {
+            if (response.data.resultCode === 0) {
+                let { id, email, login } = response.data.data
+                dispatch(setAuthDataAC(id, email, login, true))
+            }
+        })
     }
 }
+
 export const loginTC = (email, password, rememberMe = false, captcha = null) => {
     return (dispatch) => {
         API.login(email, password, rememberMe, captcha).then(response => {
-            if (response.data.resultCode===0) {
-        dispatch(getAuthDataTC())
-    } else { 
-        if (response.data.resultCode === 10) {
-            dispatch(getCaptchaTC())
-        }
-        let errorMessage = response.data.messages[0]
-        dispatch(stopSubmit('loginForm', {_error:errorMessage}))
+            if (response.data.resultCode === 0) {
+                dispatch(getAuthDataTC())
+            } else {
+                if (response.data.resultCode === 10) {
+                    dispatch(getCaptchaTC())
+                }
+                let errorMessage = response.data.messages[0]
+                dispatch(stopSubmit('loginForm', { _error: errorMessage }))
             }
-    })
+        })
     }
 }
 
@@ -72,9 +72,10 @@ export const getCaptchaTC = () => async (dispatch) => {
 export const logoutTC = () => {
     return (dispatch) => {
         API.logout().then(response => {
-            if (response.data.resultCode===0) {
-        dispatch(setAuthData(null, null, null, false))}
-    })
+            if (response.data.resultCode === 0) {
+                dispatch(setAuthDataAC(null, null, null, false))
+            }
+        })
     }
 }
 
