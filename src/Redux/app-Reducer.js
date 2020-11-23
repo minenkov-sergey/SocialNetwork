@@ -4,9 +4,11 @@ let initialState = {
     initialized: false
 }
 
+const SET_INITIALIZED = 'app-Reducer/SET_INITIALIZED'
+
 const appDataReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'SET_INITIALIZED': {
+        case SET_INITIALIZED: {
             return {
                 ...state,
                 initialized: true
@@ -17,10 +19,7 @@ const appDataReducer = (state = initialState, action) => {
     }
 }
 
-export const initializedAC = () => {
-    return { type: 'SET_INITIALIZED' }
-}
-
+export const initializedAC = () => ({ type: SET_INITIALIZED })
 
 export const initializedTC = () => (dispatch) => {
     let promise1 = dispatch(getAuthDataTC());

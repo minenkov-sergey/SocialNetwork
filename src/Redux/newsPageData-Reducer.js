@@ -7,6 +7,7 @@ let initialState = {
     ]
 }
 
+
 const newsPageDataReducer = (state = initialState, action) => {
     switch (action.type) {
         default:

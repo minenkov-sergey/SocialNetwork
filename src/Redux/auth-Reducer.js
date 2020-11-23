@@ -9,17 +9,19 @@ let initialState = {
     captchaUrl: null
 }
 
+const SET_AUTH_DATA = 'auth-Reducer/SET_AUTH_DATA'
+const SET_CAPTCHA = 'auth-Reducer/SET_CAPTCHA'
 
 const authDataReducer = (state = initialState, action) => {
 
     switch (action.type) {
-        case 'SET_AUTH_DATA': {
+        case SET_AUTH_DATA: {
             return {
                 ...state,
                 ...action.authData
             }
         }
-        case 'SET_CAPTCHA': {
+        case SET_CAPTCHA: {
             return {
                 ...state,
                 captchaUrl: action.captchaUrl
@@ -30,10 +32,9 @@ const authDataReducer = (state = initialState, action) => {
     }
 }
 
-export const setAuthDataAC = (id, email, login, isLogged) => ({ type: 'SET_AUTH_DATA', authData: { id, email, login, isLogged } })
+export const setAuthDataAC = (id, email, login, isLogged) => ({ type: SET_AUTH_DATA, authData: { id, email, login, isLogged }})
 
-export const setCaptchaAC = (captchaUrl) => ({ type: 'SET_CAPTCHA', captchaUrl })
-
+export const setCaptchaAC = (captchaUrl) => ({ type: SET_CAPTCHA, captchaUrl })
 
 export const getAuthDataTC = () => {
     return (dispatch) => {

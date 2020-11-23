@@ -11,10 +11,16 @@ let initialState = {
 
 }
 
+const ADD_POST = 'profilePageData-Reducer/ADD_POST'
+const SET_USER_PROFILE = 'profilePageData-Reducer/SET_USER_PROFILE'
+const SET_STATUS = 'profilePageData-Reducer/SET_STATUS'
+const DELETE_POST = 'profilePageData-Reducer/DELETE_POST'
+const SET_AVATAR = 'profilePageData-Reducer/SET_AVATAR'
+
 
 const profilePageDataReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'ADD-POST': {
+        case ADD_POST: {
             let lengthArray = state.profilePageData.length + 1
             let newPost = {
                 id: lengthArray,
@@ -26,25 +32,25 @@ const profilePageDataReducer = (state = initialState, action) => {
                 profilePageData: [...state.profilePageData, newPost],
             }
         }
-        case 'SET-USER-PROFILE': {
+        case SET_USER_PROFILE: {
             return {
                 ...state,
                 userProfile: action.profile
             }
         }
-        case 'SET-STATUS': {
+        case SET_STATUS: {
             return {
                 ...state,
                 status: action.status
             }
         }
-        case 'DELETE-POST': {
+        case DELETE_POST: {
             return {
                 ...state,
                 profilePageData: state.profilePageData.filter(p => p.id !== action.postId)
             }
         }
-        case 'SET-AVATAR': {
+        case SET_AVATAR: {
             return {
                 ...state,
                 userProfile: { ...state.userProfile, photos: action.avatars }
@@ -54,6 +60,17 @@ const profilePageDataReducer = (state = initialState, action) => {
             return state;
     }
 }
+
+export const deletePostAC = (postId) => ({ type: DELETE_POST, postId })
+
+export const setSaveAvatarAC = (avatars) => ({ type: SET_AVATAR, avatars })
+
+export const setProfileStatusAC = (status) => ({ type: SET_STATUS, status })
+
+export const addPostAC = (value) => ({ type: ADD_POST, value })
+
+export const setUserProfileAC = (profile) => ({ type: SET_USER_PROFILE, profile })
+
 
 export const getUserProfileTC = (userId) => {
     return (dispatch) => {
@@ -105,24 +122,6 @@ export const saveProfileDataTC = (profileData) => async (dispatch, getState) => 
     }
 }
 
-export const deletePostAC = (postId) => {
-    return { type: 'DELETE-POST', postId }
-}
 
-export const setSaveAvatarAC = (avatars) => {
-    return { type: 'SET-AVATAR', avatars }
-}
-
-export const setProfileStatusAC = (status) => {
-    return { type: 'SET-STATUS', status }
-}
-
-export const addPostAC = (value) => {
-    return { type: 'ADD-POST', value }
-}
-
-export const setUserProfileAC = (profile) => {
-    return {type: 'SET-USER-PROFILE', profile }
-}
 
 export default profilePageDataReducer;

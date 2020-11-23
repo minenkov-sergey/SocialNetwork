@@ -9,9 +9,31 @@ let initialState = {
     isButtonDisabled: []
 }
 
+const FOLLOW = 'usersPageData-Reducer/FOLLOW'
+const UNFOLLOW = 'usersPageData-Reducer/UNFOLLOW'
+const SET_USERS = 'usersPageData-Reducer/SET_USERS'
+const SET_PAGE = 'usersPageData-Reducer/SET_PAGE'
+const SET_TOTALCOUNT = 'usersPageData-Reducer/SET_TOTALCOUNT'
+const TOGGLE_ISFETCHING = 'usersPageData-Reducer/TOGGLE_ISFETCHING'
+const BUTTON_DISABLE = 'usersPageData-Reducer/BUTTON_DISABLE'
+
+export const setFollowAC = (userId) => ({ type: FOLLOW, userId })
+
+export const setUnFollowAC = (userId) => ({ type: UNFOLLOW, userId })
+
+export const setUsersAC = (users) => ({ type: SET_USERS, users })
+
+export const setCurrentPageAC = (currentPage) => ({ type: SET_PAGE, currentPage })
+
+export const setTotalUsersCountAC = (totalCount) => ({ type: SET_TOTALCOUNT, totalCount })
+
+export const toggleIsFetchingAC = (isFetching) => ({ type: TOGGLE_ISFETCHING, isFetching })
+
+export const buttonDisableAC = (toggle, userId) => ({ type: BUTTON_DISABLE, toggle, userId })
+
 const usersPageDataReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'FOLLOW': {
+        case FOLLOW: {
             return {
                 ...state,
                 usersData: state.usersData.map(u => {
@@ -22,7 +44,7 @@ const usersPageDataReducer = (state = initialState, action) => {
                 })
             }
         }
-        case 'UNFOLLOW': {
+        case UNFOLLOW: {
             return {
                 ...state,
                 usersData: state.usersData.map(u => {
@@ -33,31 +55,31 @@ const usersPageDataReducer = (state = initialState, action) => {
                 })
             }
         }
-        case 'SET_USERS': {
+        case SET_USERS: {
             return {
                 ...state,
                 usersData: action.users
             }
         }
-        case 'SET_PAGE': {
+        case SET_PAGE: {
             return {
                 ...state,
                 currentPage: action.currentPage
             }
         }
-        case 'SET_TOTALCOUNT': {
+        case SET_TOTALCOUNT: {
             return {
                 ...state,
                 totalUsersCount: action.totalCount
             }
         }
-        case 'TOGGLE_ISFETCHING': {
+        case TOGGLE_ISFETCHING: {
             return {
                 ...state,
                 isFetching: action.isFetching
             }
         }
-        case 'BUTTON-DISABLE': {
+        case BUTTON-DISABLE: {
             return {
                 ...state,
                 isButtonDisabled: action.toogle === true ? [...state.isButtonDisabled, action.userId]
@@ -99,18 +121,6 @@ export const followTC = (userId) => {
     }
 }
 
-export const setFollowAC = (userId) => ({ type: 'FOLLOW', userId })
 
-export const setUnFollowAC = (userId) => ({ type: 'UNFOLLOW', userId })
-
-export const setUsersAC = (users) => ({ type: 'SET_USERS', users })
-
-export const setCurrentPageAC = (currentPage) => ({ type: 'SET_PAGE', currentPage })
-
-export const setTotalUsersCountAC = (totalCount) => ({ type: 'SET_TOTALCOUNT', totalCount })
-
-export const toggleIsFetchingAC = (isFetching) => ({ type: 'TOGGLE_ISFETCHING', isFetching })
-
-export const buttonDisableAC = (toggle, userId) => ({ type: 'BUTTON-DISABLE', toggle, userId })
 
 export default usersPageDataReducer;

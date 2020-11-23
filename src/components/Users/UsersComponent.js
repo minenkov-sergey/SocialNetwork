@@ -1,11 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import {compose}  from 'redux'
-import { setCurrentPage,  buttonDisable } from '../../Redux/usersPageData-Reducer'
+import { compose } from 'redux'
 import Users from './Users'
 import Preloader from './../common/Preloader'
-import { setUsersThunkCreator, followTC, unFollowTC } from './../../Redux/usersPageData-Reducer';
-import {  getPageSize, getTotalUsersCount, getCurrentPage, getStatusIsFetching, getButtonStatus, getUsersDataSuperSelector } from './../../Redux/selectors/usersPageData-selectors';
+import { setUsersTC, followTC, unFollowTC, setCurrentPageAC, buttonDisableAC } from './../../Redux/usersPageData-Reducer';
+import { getPageSize, getTotalUsersCount, getCurrentPage, getStatusIsFetching, getButtonStatus, getUsersDataSuperSelector } from './../../Redux/selectors/usersPageData-selectors';
 
 
 class UsersComponent extends React.Component {
@@ -27,7 +26,7 @@ class UsersComponent extends React.Component {
     render() {
 
         return (<>
-            { this.props.isFetching === true? <Preloader  /> : null }
+            {this.props.isFetching === true ? <Preloader /> : null}
 
             <Users totalUsersCount={this.props.totalItemsCount}
                 pageSize={this.props.pageSize}
@@ -36,13 +35,12 @@ class UsersComponent extends React.Component {
                 unfollowButton={this.props.unfollowButton}
                 followButton={this.props.followButton}
                 onClickPage={this.onClickPage}
-                isButtonDisabled = {this.props.isButtonDisabled}
+                isButtonDisabled={this.props.isButtonDisabled}
             />
-            </>
+        </>
         )
     }
 }
-
 
 let mapStatetoProps = (state) => {
     return {
@@ -54,46 +52,17 @@ let mapStatetoProps = (state) => {
         isButtonDisabled: getButtonStatus(state)
     }
 }
-
-export default compose (
-    //withAuthRedirect,
-    (connect(mapStatetoProps, {
+let mapDispatchToProps = (dispatch) => {
+    return {
         followButton: followTC,
         unfollowButton: unFollowTC,
-        setPage: setCurrentPage,
-        buttonDisable: buttonDisable,
-        setUsers: setUsersThunkCreator
-        }))
-) (UsersComponent)
+        setPage: setCurrentPageAC,
+        buttonDisable: buttonDisableAC,
+        setUsers: setUsersTC
+    }
+}
 
-
-// let mapDispatchToProps = (dispatch) => {
-//     return {
-//         followButton: (userId) => {
-//             dispatch(followActionCreator(userId))
-//         },
-//         unfollowButton: (userId) => {
-//             dispatch(unFollowActionCreator(userId))
-//         },
-//         setUsers: (users) => {
-//             dispatch(setUsersActionCreator(users))
-//         },
-//         setPage: (currentPage) => {
-//             dispatch(setCurrentPageActionCreator(currentPage))
-//         },
-//         setTotalUsersCount: (totalCount) => {
-//             dispatch(setTotalUsersCountActionCreator(totalCount))
-//         },
-//         toggleIsFetching: (isFetching) => {
-//             dispatch(toggleIsFetching(isFetching))
-//         }
-//     }
-// }
-
-// export default withAuthRedirect(connect(mapStatetoProps, {
-//     followButton: followTC,
-//     unfollowButton: unFollowTC,
-//     setPage: setCurrentPage,
-//     buttonDisable: buttonDisable,
-//     setUsers: setUsersThunkCreator
-//     })(UsersComponent));
+export default compose(
+    //withAuthRedirect,
+    (connect(mapStatetoProps, mapDispatchToProps))
+)(UsersComponent)
