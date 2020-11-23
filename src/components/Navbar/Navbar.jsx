@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Navbar.module.css';
 import { NavLink } from 'react-router-dom';
-import FriendsBar from './FriendsBar/FriendsBar'; 
+import FriendsBar from './FriendsBar/FriendsBar';
 import musicIcon from './../../assets/NavBar/music.png'
 import settingsIcon from './../../assets/NavBar/settingsIcon.png'
 import usersIcon from './../../assets/NavBar/usersIcon.png'
@@ -15,23 +15,23 @@ const Navbar = (props) => {
     <div className={styles.navbar}>
       <div className={styles.menubar}>
         <div>
-        <img src={homeIcon} alt={''}></img>
+          <img src={homeIcon} alt={''}></img>
           <NavLink activeClassName={styles.activeLink} to='/Profile'>Profile</NavLink>
         </div>
         <div>
-        <img src={messagesIcon} alt={''}></img>
+          <img src={messagesIcon} alt={''}></img>
           <NavLink activeClassName={styles.activeLink} to='/Dialogs'>Messages</NavLink>
         </div>
         <div>
-        <img src={newsIcon} alt={''}></img>
+          <img src={newsIcon} alt={''}></img>
           <NavLink activeClassName={styles.activeLink} to={'/News'}>News</NavLink>
         </div>
         <div>
-        <img src={musicIcon} alt={''}></img>
+          <img src={musicIcon} alt={''}></img>
           <NavLink activeClassName={styles.activeLink} to={'/Music'}>Music</NavLink>
         </div>
         <div>
-        <img src={settingsIcon} alt={''}></img>
+          <img src={settingsIcon} alt={''}></img>
           <NavLink activeClassName={styles.activeLink} to={'/Settings'}>Settings</NavLink>
         </div>
         <div>

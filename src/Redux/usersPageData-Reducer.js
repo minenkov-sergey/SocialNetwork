@@ -79,7 +79,7 @@ const usersPageDataReducer = (state = initialState, action) => {
                 isFetching: action.isFetching
             }
         }
-        case BUTTON-DISABLE: {
+        case BUTTON_DISABLE: {
             return {
                 ...state,
                 isButtonDisabled: action.toogle === true ? [...state.isButtonDisabled, action.userId]

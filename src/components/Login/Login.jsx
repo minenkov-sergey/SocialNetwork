@@ -60,13 +60,13 @@ export default connect(mapStateToProps, { loginTC })(Login);
 
 const SignIn = (props) => {
     const renderTextField = ({ label, input, meta: { touched, invalid, error }, ...custom
-    }) => ( <TextField label={label} placeholder={label} error={touched && invalid} helperText={touched && error} {...input} {...custom}/> )
+    }) => (<TextField label={label} placeholder={label} error={touched && invalid} helperText={touched && error} {...input} {...custom} />)
 
     const renderCheckbox = ({ input, label }) => (
         <div>
-            <FormControlLabel 
-                control={ <Checkbox checked={input.value ? true : false} onChange={input.onChange} /> }
-                label={ label }
+            <FormControlLabel
+                control={<Checkbox checked={input.value ? true : false} onChange={input.onChange} />}
+                label={label}
             />
         </div>
     )

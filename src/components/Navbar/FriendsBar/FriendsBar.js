@@ -8,7 +8,7 @@ const FriendsBar = (props) => {
             <Friend name={friend.name} id={friend.id} key={friend.id} />
         )
     }
-    );
+    )
     return (
         <div className={styles.content}>
             <div className={styles.h2}>Friends</div>

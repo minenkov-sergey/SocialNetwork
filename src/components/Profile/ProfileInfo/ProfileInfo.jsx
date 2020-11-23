@@ -10,16 +10,13 @@ import instLogo from './../../../assets/ProfilePage/instLogo.png'
 import wwwLogo from './../../../assets/ProfilePage/wwwLogo.png'
 import youtubeLogo from './../../../assets/ProfilePage/youtubeLogo.svg'
 import userAvatar from './../../../assets/UsersPage/userAvatar.png'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ProfileDataReduxForm from './ProfileDataForm';
-
-
 
 
 const ProfileInfo = (props) => {
 
   const [toggle, editModeToggle] = useState(false)
-
 
   if (!props.userProfile) {
     return <Preloader />

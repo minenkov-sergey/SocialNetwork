@@ -10,5 +10,4 @@ const DialogName = (props) => {
     )
 }
 
-
 export default DialogName;

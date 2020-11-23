@@ -1,53 +1,51 @@
 import React from 'react';
 import Profile from './Profile'
+import {useEffect} from 'react'
 import { connect } from 'react-redux'
-import {getUserProfileTC, getProfileStatusTC, updateProfileStatusTC, setSaveAvatarTC, saveProfileDataTC} from './../../Redux/profilePageData-Reducer'
+import { getUserProfileTC, getProfileStatusTC, updateProfileStatusTC, setSaveAvatarTC, saveProfileDataTC } from './../../Redux/profilePageData-Reducer'
 import { withRouter } from 'react-router-dom';
-//import { withAuthRedirect } from './../../hoc/withAuthRedirect';
 import { compose } from 'redux';
 
 
+const ProfileContainer = (props) => {
 
-class ProfileContainer extends React.Component {
-
-  refreshProfile () {
-    let userId = this.props.match.params.userId
+  useEffect(() => {
+    let userId = props.match.params.userId
     if (!userId) {
-      userId = this.props.loggedId
+      userId = props.loggedId
       if (!userId) {
-        this.props.history.push('/login')
+        props.history.push('/login')
       }
-    } 
-    this.props.setUserProfile(userId)
-    this.props.getStatus(userId)
-  }
-
-  componentDidMount = () => {
-    this.refreshProfile()
-}
-
-  componentDidUpdate = (prevProps, prevState, snapshot) => {
-    if (this.props.match.params.userId != prevProps.match.params.userId) {
-    this.refreshProfile()
     }
-  }
-  render () {
-    return (
-      <Profile {...this.props} userProfile={this.props.userProfile} status={this.props.status} isOwner = {!this.props.match.params.userId} />
-    )
-  }
+    props.setUserProfile(userId)
+    props.getStatus(userId)
+  },[props.match.params.userId])
+
+  return (
+    <Profile {...props} userProfile={props.userProfile} status={props.status} isOwner={!props.match.params.userId} />
+  )
 }
+
 
 
 let mapStatetoProps = (state) => ({
-    userProfile: state.profilePageData.userProfile,
-    status: state.profilePageData.status,
-    loggedId: state.authData.id,
-    
-  })
+  userProfile: state.profilePageData.userProfile,
+  status: state.profilePageData.status,
+  loggedId: state.authData.id,
 
-export default compose (
-  connect(mapStatetoProps, {setUserProfile:getUserProfileTC, getStatus:getProfileStatusTC, updateStatus:updateProfileStatusTC, saveAvatar: setSaveAvatarTC, saveProfileDataTC: saveProfileDataTC}),
-  withRouter,
-  //withAuthRedirect
-) ( ProfileContainer )
+})
+
+let mapDispatchtoProps = () => {
+  return {
+    setUserProfile: getUserProfileTC,
+    getStatus: getProfileStatusTC,
+    updateStatus: updateProfileStatusTC,
+    saveAvatar: setSaveAvatarTC,
+    saveProfileDataTC: saveProfileDataTC
+  }
+}
+
+export default compose(
+  connect(mapStatetoProps, mapDispatchtoProps()),
+  withRouter
+)(ProfileContainer)

@@ -25,7 +25,7 @@ const Header = (props) => {
           <div>
             <button onClick={logOutButton}> LogOut</button>
           </div>
-                      </div>
+        </div>
           : <NavLink to='/login'>Login</NavLink>}
       </div>
     </header>

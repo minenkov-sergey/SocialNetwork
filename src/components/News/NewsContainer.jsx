@@ -8,6 +8,4 @@ let mapStatetoProps = (state) => {
     }
 }
 
-//let mapDispatchToProps = (dispatch) => {}
-
 export default connect(mapStatetoProps)(News);
