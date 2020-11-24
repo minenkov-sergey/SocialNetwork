@@ -4,8 +4,9 @@
     height: 200px;
   }
   .avatar {
-    width: 150px;
-    height: 150px;
+    width: 300px;
+    height: 300px;
+    border-radius: 20px;
   }
 .contacts {
   display: flex;
@@ -15,4 +16,13 @@
   width: 25px;
   height: 25px;
   margin: 1px;
+}
+.changeAvatarButton{
+  position: relative;
+  top: -45px;
+}
+.input{
+display: none;
+}
+.fab {
 }

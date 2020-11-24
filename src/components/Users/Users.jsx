@@ -6,13 +6,11 @@ import Paginator from '../common/Paginator'
 
 
 const Users = (props) => {
-
     return (
         <div>
             <div>
                 <Paginator {...props} totalItemsCount={props.totalUsersCount}/>
             </div>
-
             {props.users.map(u =>
                 <div key={u.id} className={styles.userInfo}>
                     <div className={styles.avbut}>

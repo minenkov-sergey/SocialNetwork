@@ -9,5 +9,4 @@ const Preloader = (props) => {
     )
 }
 
-
 export default Preloader

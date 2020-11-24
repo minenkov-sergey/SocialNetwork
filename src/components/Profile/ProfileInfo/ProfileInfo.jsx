@@ -12,6 +12,9 @@ import youtubeLogo from './../../../assets/ProfilePage/youtubeLogo.svg'
 import userAvatar from './../../../assets/UsersPage/userAvatar.png'
 import { useState } from 'react';
 import ProfileDataReduxForm from './ProfileDataForm';
+import { IconButton, Tooltip } from '@material-ui/core';
+import { PhotoCamera } from '@material-ui/icons';
+import Button from '@material-ui/core/Button'
 
 
 const ProfileInfo = (props) => {
@@ -24,82 +27,81 @@ const ProfileInfo = (props) => {
 
   const avatarSelected = (e) => {
     if (e.target.files.length)
-    props.saveAvatar (e.target.files[0])
+      props.saveAvatar(e.target.files[0])
   }
 
   const onSubmit = (formdata) => {
-    props.saveProfileDataTC(formdata).then ( () => {
+    props.saveProfileDataTC(formdata).then(() => {
       editModeToggle(false)
     })
-    }
+  }
 
 
   return (
     <div>
       <div>
-        <img className={styles.wallpaper} alt={''} src='https://www.metoffice.gov.uk/binaries/content/gallery/metofficegovuk/hero-images/advice/maps-satellite-images/satellite-image-of-globe.jpg'></img>
+        <img src={props.userProfile.photos.large || userAvatar} className={styles.avatar} alt={'userAvatar'}></img>
       </div>
+      {props.isOwner ?
+        <div className={styles.changeAvatarButton}>
+          <input accept="image/*" className={styles.input} id="icon-button-file" type="file" />
+          <label htmlFor="icon-button-file">
+          <Tooltip title="Change Avatar" aria-label="Change Avatar">
+            <IconButton color="primary" aria-label="upload picture" component="span">
+              <PhotoCamera />
+            </IconButton>
+            </Tooltip>
+          </label>
+        </div> : null}
       <div>
-        <img src={props.userProfile.photos.large || userAvatar} alt={''}></img>
+        <b>Статус:</b><ProfileStatusHooks status={props.status} updateStatus={props.updateStatus} />
       </div>
-      <div>
-        {props.isOwner && <input type={'file'}  onChange={avatarSelected}/>}
-      </div>
-      <div>
-      <b>Статус:</b><ProfileStatusHooks status={props.status} updateStatus={props.updateStatus} />
-      </div>
-      {toggle? 
-      <ProfileDataReduxForm initialValues={props.userProfile} editModeToggle={editModeToggle}  onSubmit={onSubmit}/> 
-      : <ProfileData userProfile={props.userProfile} isOwner={props.isOwner} editModeToggle={editModeToggle}/>}
+      {toggle ?
+        <ProfileDataReduxForm initialValues={props.userProfile} editModeToggle={editModeToggle} onSubmit={onSubmit} />
+        : <ProfileData userProfile={props.userProfile} isOwner={props.isOwner} editModeToggle={editModeToggle} />}
     </div>
   )
 }
 
 
-
-
-
-
 const ProfileData = (props) => {
-  
-  
 
   return (
     <div>
-      { props.isOwner? <button onClick={ () => {props.editModeToggle(true)} }>EditMode</button> : null}
-  <div>
-  <b>Имя: </b>{props.userProfile.fullName}
-  </div>
-  <div>
-    <b>Обо мне: </b>{props.userProfile.aboutMe}
-  </div>
-  <div>
-    <div>
-    <b>В поиске работы? -  </b>{props.userProfile.lookingForAJob === true ? ' Да' : ' Нет'}
-    </div>
-    <div>
-    <b>Профессиональные навыки:</b>{props.userProfile.lookingForAJobDescription}
-    </div>
-  </div>
-  <b>Контакты: </b>
-  <div className={styles.contacts}>
-    <span><img src={facebookLogo} alt={''}></img>{props.userProfile.contacts.facebook}
-    </span>
-    <span><img src={wwwLogo} alt={''}></img>{props.userProfile.contacts.website}
-    </span>
-    <span><img src={vkLogo} alt={''}></img>{props.userProfile.contacts.vk}
-    </span>
-    <span><img src={twitterLogo} alt={''}></img>{props.userProfile.contacts.twitter}
-    </span>
-    <span><img src={instLogo} alt={''}></img>{props.userProfile.contacts.instagram}
-    </span>
-    <span><img src={youtubeLogo} alt={''}></img> {props.userProfile.contacts.youtube}
-    </span>
-    <span><img src={githubLogo} alt={''}></img>{props.userProfile.contacts.github}
-    </span>
-    <span><img src={'mainLink logo'} alt={''}></img>{props.userProfile.contacts.mainLink}
-    </span>
-  </div>
-  </div>)
+      {props.isOwner ? <Button variant="contained" color="primary" onClick={() => { props.editModeToggle(true) }}>Change ProfileInfo</Button> : null}
+      <div>
+        <b>Имя: </b>{props.userProfile.fullName}
+      </div>
+      <div>
+        <b>Обо мне: </b>{props.userProfile.aboutMe}
+      </div>
+      <div>
+        <div>
+          <b>В поиске работы? -  </b>{props.userProfile.lookingForAJob === true ? ' Да' : ' Нет'}
+        </div>
+        <div>
+          <b>Профессиональные навыки:</b>{props.userProfile.lookingForAJobDescription}
+        </div>
+      </div>
+      <b>Контакты: </b>
+      <div className={styles.contacts}>
+        <span><img src={facebookLogo} alt={''}></img>{props.userProfile.contacts.facebook}
+        </span>
+        <span><img src={wwwLogo} alt={''}></img>{props.userProfile.contacts.website}
+        </span>
+        <span><img src={vkLogo} alt={''}></img>{props.userProfile.contacts.vk}
+        </span>
+        <span><img src={twitterLogo} alt={''}></img>{props.userProfile.contacts.twitter}
+        </span>
+        <span><img src={instLogo} alt={''}></img>{props.userProfile.contacts.instagram}
+        </span>
+        <span><img src={youtubeLogo} alt={''}></img> {props.userProfile.contacts.youtube}
+        </span>
+        <span><img src={githubLogo} alt={''}></img>{props.userProfile.contacts.github}
+        </span>
+        <span><img src={'mainLink logo'} alt={''}></img>{props.userProfile.contacts.mainLink}
+        </span>
+      </div>
+    </div>)
 }
 export default ProfileInfo;

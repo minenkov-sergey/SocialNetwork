@@ -10,12 +10,13 @@ import instLogo from './../../../assets/ProfilePage/instLogo.png'
 import wwwLogo from './../../../assets/ProfilePage/wwwLogo.png'
 import youtubeLogo from './../../../assets/ProfilePage/youtubeLogo.svg'
 import { Input } from '../../common/FormComponents/FormComponents';
+import  Button from '@material-ui/core/Button';
 
 const ProfileDataForm = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
-                <button>Save</button>
+            <Button type='submit' variant="contained" color="primary">Save</Button>
             </div>
             <div>
             
