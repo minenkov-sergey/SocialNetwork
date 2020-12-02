@@ -1,10 +1,10 @@
 import React from 'react';
 import styles from './MyPosts.module.css';
-import Post from './Post/Post.jsx';
+import Post from './Post/Post';
 import { Field, reduxForm } from 'redux-form';
-import {TextArea} from './../../common/FormComponents/FormComponents'
+import {TextArea} from '../../common/FormComponents/FormComponents'
 import { maxLengthCreator } from '../../common/FormComponents/validators';
-import { required } from './../../common/FormComponents/validators';
+import { required } from '../../common/FormComponents/validators';
 
 
 

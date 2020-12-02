@@ -2,10 +2,10 @@ import React from 'react';
 import Profile from './Profile'
 import {useEffect} from 'react'
 import { connect } from 'react-redux'
-import { getUserProfileTC, getProfileStatusTC, updateProfileStatusTC, setSaveAvatarTC, saveProfileDataTC } from './../../Redux/profilePageData-Reducer'
+import { getUserProfileTC, getProfileStatusTC, updateProfileStatusTC, setSaveAvatarTC, saveProfileDataTC } from '../../Redux/profilePageData-Reducer'
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
-import { withAuthRedirect } from './../../hoc/withAuthRedirect';
+import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 
 
 const ProfileContainer = (props) => {

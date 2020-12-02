@@ -1,12 +1,16 @@
 import { getAuthDataTC } from "./auth-Reducer";
 
-let initialState = {
+export type InitialStateType = {
+    initialized: boolean
+}
+
+let initialState: InitialStateType = {
     initialized: false
 }
 
 const SET_INITIALIZED = 'app-Reducer/SET_INITIALIZED'
 
-const appDataReducer = (state = initialState, action) => {
+const appDataReducer = (state = initialState, action: any): InitialStateType  => {
     switch (action.type) {
         case SET_INITIALIZED: {
             return {
@@ -19,9 +23,13 @@ const appDataReducer = (state = initialState, action) => {
     }
 }
 
-export const initializedAC = () => ({ type: SET_INITIALIZED })
+type initializedACType = {
+    type: typeof SET_INITIALIZED
+}
 
-export const initializedTC = () => (dispatch) => {
+export const initializedAC = (): initializedACType => ({ type: SET_INITIALIZED })
+
+export const initializedTC = () => (dispatch: any) => {
     let promise1 = dispatch(getAuthDataTC());
     Promise.all([promise1]).then(() => {
         dispatch(initializedAC());

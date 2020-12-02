@@ -3,10 +3,10 @@ import {useEffect} from 'react'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import Users from './Users'
-import Preloader from './../common/Preloader'
-import { setUsersTC, followTC, unFollowTC, setCurrentPageAC, buttonDisableAC } from './../../Redux/usersPageData-Reducer';
-import { getPageSize, getTotalUsersCount, getCurrentPage, getStatusIsFetching, getButtonStatus, getUsersDataSuperSelector } from './../../Redux/selectors/usersPageData-selectors';
-import { withAuthRedirect } from './../../hoc/withAuthRedirect';
+import Preloader from '../common/Preloader'
+import { setUsersTC, followTC, unFollowTC, setCurrentPageAC, buttonDisableAC } from '../../Redux/usersPageData-Reducer';
+import { getPageSize, getTotalUsersCount, getCurrentPage, getStatusIsFetching, getButtonStatus, getUsersDataSuperSelector } from '../../Redux/selectors/usersPageData-selectors';
+import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 
 
 const UsersComponent = (props) => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './ProfileInfo.module.css';
-import Preloader from './../../common/Preloader'
-import ProfileStatusHooks from './ProfileStatusHooks.jsx'
+import Preloader from '../../common/Preloader'
+import ProfileStatusHooks from './ProfileStatusHooks'
 import vkLogo from './../../../assets/ProfilePage/vkLogo.png'
 import facebookLogo from './../../../assets/ProfilePage/facebookLogo.png'
 import twitterLogo from './../../../assets/ProfilePage/twitterLogo.png'
@@ -25,10 +25,10 @@ const ProfileInfo = (props) => {
     return <Preloader />
   }
 
-  const avatarSelected = (e) => {
-    if (e.target.files.length)
-      props.saveAvatar(e.target.files[0])
-  }
+  // const avatarSelected = (e) => {
+  //   if (e.target.files.length)
+  //     props.saveAvatar(e.target.files[0])
+  // }
 
   const onSubmit = (formdata) => {
     props.saveProfileDataTC(formdata).then(() => {
