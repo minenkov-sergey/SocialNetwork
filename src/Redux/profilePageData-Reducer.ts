@@ -1,6 +1,8 @@
-import { API } from '../api/api';
+import { API, ResultCodesEnum } from '../api/api';
 import { stopSubmit } from 'redux-form';
 import { PhotosType, PostType, ProfileType } from '../types/types';
+import { Dispatch } from 'react';
+import { AppStateType } from './redux-store';
 
 export type InitialStateType = typeof initialState
 
@@ -8,12 +10,12 @@ export type InitialStateType = typeof initialState
 
 
 let initialState = {
-    newpostProfilePageData: '',
+    newpostProfilePageData: '' as string | null,
     profilePageData: [
         { id: 1, message: 'first post', likecount: 15 },
         { id: 2, message: 'second post', likecount: 6 }] as Array<PostType>,
     userProfile: null as ProfileType | null,
-    status: ''
+    status: '' as string | null
 
 }
 
@@ -24,7 +26,7 @@ const DELETE_POST = 'profilePageData-Reducer/DELETE_POST'
 const SET_AVATAR = 'profilePageData-Reducer/SET_AVATAR'
 
 
-const profilePageDataReducer = (state = initialState, action: any): InitialStateType => {
+const profilePageDataReducer = (state = initialState, action: ActionType): InitialStateType => {
     switch (action.type) {
         case ADD_POST: {
             let lengthArray = state.profilePageData.length + 1
@@ -67,6 +69,8 @@ const profilePageDataReducer = (state = initialState, action: any): InitialState
     }
 }
 
+type ActionType = deletePostACType | setSaveAvatarACType | setProfileStatusACType | addPostACType | setUserProfileACType
+
 type deletePostACType = {
     type: typeof DELETE_POST,
     postId: number
@@ -98,46 +102,47 @@ type setUserProfileACType = {
 export const setUserProfileAC = (profile: ProfileType): setUserProfileACType => ({ type: SET_USER_PROFILE, profile })
 
 
-export const getUserProfileTC = (userId: number) => {
-    return (dispatch: any) => {
+export const getUserProfileTC = (userId: number | null ) => {
+    return (dispatch: Dispatch<ActionType>) => {
         API.getProfile(userId)
-            .then((response: any) => {
+            .then((response) => {
                 dispatch(setUserProfileAC(response.data))
             })
     }
 }
 export const getProfileStatusTC = (userId: number) => {
-    return (dispatch: any) => {
+    return (dispatch: Dispatch<ActionType>) => {
         API.getProfileStatus(userId)
-            .then((response:any) => {
+            .then((response) => {
                 dispatch(setProfileStatusAC(response.data))
             })
     }
 }
 export const setSaveAvatarTC = (avatar:PhotosType) => {
-    return (dispatch:any) => {
+    return (dispatch: Dispatch<ActionType>) => {
         API.setAvatar(avatar)
-            .then((response:any) => {
-                if (response.data.resultCode === 0) {
+            .then((response) => {
+                if (response.data.resultCode === ResultCodesEnum.Success) {
                     dispatch(setSaveAvatarAC(response.data.data.photos))
                 }
             })
     }
 }
-export const updateProfileStatusTC = (status:string) => async (dispatch: any) => {
+export const updateProfileStatusTC = (status:string) => async (dispatch: Dispatch<ActionType>) => {
     try {
         const response = await API.updateProfileStatus(status)
-        if (response.data.resultCode === 0) {
+        if (response.data.resultCode === ResultCodesEnum.Success) {
             dispatch(setProfileStatusAC(status))
         }
     }
     catch (error) { alert(error.message) }
 }
-
+///Type?
 export const saveProfileDataTC = (profileData: ProfileType) => async (dispatch: any, getState: any) => {
     const userId = getState().authData.id
+    
     let response = await API.saveProfileData(profileData)
-    if (response.data.resultCode === 0) {
+    if (response.data.resultCode === ResultCodesEnum.Success) {
         dispatch(getUserProfileTC(userId))
     }
     else {

@@ -1,48 +1,48 @@
 import React from 'react';
-import './App.css';
+import styles from './App.module.css'
 import HeaderContainer from './components/Header/HeaderContainer'
 import Navbar from './components/Navbar/Navbar'
 import ProfileContainer from './components/Profile/ProfileContainer'
 import { Route, withRouter, Redirect, Switch } from 'react-router-dom';
 import DialogsContainer from './components/Dialogs/DialogsContainer'
-import UsersComponent from './components/Users/UsersComponent'
+import UsersContainer from './components/Users/UsersContainerJS'
 import Login from './components/Login/Login';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { initializedTC } from './Redux/app-Reducer';
 import Preloader from './components/common/Preloader';
 import { withSuspence } from './hoc/withSuspence';
+import { AppStateType } from './Redux/redux-store';
+import {useEffect} from 'react'
+
+
 const Settings = React.lazy(() => import('./components/Settings/Settings'));
 const Music = React.lazy(() => import('./components/Music/Music'));
 const NewsContainer = React.lazy(() => import('./components/News/NewsContainer'));
 
 
-class App extends React.Component {
+const App = (props) => {
+  
+// eslint-disable-next-line
+  useEffect( () => {props.setInitialized()},[])
 
-  catchAllUnhandledErrors = () => {
-    alert('some error occured')
-  }
+  // window.addEventListener('unhandledrejection', this.catchAllUnhandledErrors)
 
-  componentDidMount() {
-    this.props.setInitialized()
-    window.addEventListener('unhandledrejection', this.catchAllUnhandledErrors)
-  }
+  // componentWillUnmount() {
+  //   window.addEventListener('unhandledrejection', this.catchAllUnhandledErrors)
+  // }
 
-  componentWillUnmount() {
-    window.addEventListener('unhandledrejection', this.catchAllUnhandledErrors)
-  }
-
-  render() {
-    if (this.props.isInitialized === false) {
+    //@ts-ignore
+    if (props.isInitialized === false) {
       return <Preloader />
     }
 
     return (
-      <div className='app'>
-        <div className='app-wrapper'>
+      <div className={styles.app}>
+        <div className={styles.app_wrapper}>
           <HeaderContainer />
-          <Navbar sidebarData={this.props.store.getState().sidebarData} />
-          <div className='app-wrapper-content'>
+          <Navbar />
+          <div className={styles.app_wrapper_content}>
             <Switch>
 
               <Redirect exact from='/' to='/profile' />
@@ -57,7 +57,7 @@ class App extends React.Component {
 
               <Route path='/settings' render={withSuspence(Settings)} />
 
-              <Route path='/users' render={() => <UsersComponent />} />
+              <Route path='/users' render={() => <UsersContainer />} />
 
               <Route path='/login' render={() => <Login />} />
 
@@ -69,7 +69,6 @@ class App extends React.Component {
       </div>
     );
   }
-}
 
 
 const mapStateToProps = (state) => ({

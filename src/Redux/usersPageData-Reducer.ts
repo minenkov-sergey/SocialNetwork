@@ -1,15 +1,10 @@
-import { API } from '../api/api';
-import { PhotosType } from '../types/types';
+import { API, ResultCodesEnum } from '../api/api';
+import { UserType } from '../types/types';
+import { Dispatch } from 'react';
+import { AppStateType } from './redux-store';
+import { ThunkAction } from 'redux-thunk';
 
 type InitialStateType = typeof initialState
-
-type UserType = {
-    id: string
-    name: string
-    status: string | null
-    photos: PhotosType
-    followed: boolean
-}
 
 let initialState = {
     usersData: [] as Array<UserType>,
@@ -31,7 +26,7 @@ const BUTTON_DISABLE = 'usersPageData-Reducer/BUTTON_DISABLE'
 
 
 
-const usersPageDataReducer = (state = initialState, action: any): InitialStateType => {
+const usersPageDataReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
     switch (action.type) {
         case FOLLOW: {
             return {
@@ -82,7 +77,7 @@ const usersPageDataReducer = (state = initialState, action: any): InitialStateTy
         case BUTTON_DISABLE: {
             return {
                 ...state,
-                isButtonDisabled: action.toogle === true ? [...state.isButtonDisabled, action.userId]
+                isButtonDisabled: action.toggle === true ? [...state.isButtonDisabled, action.userId]
                     : state.isButtonDisabled.filter(id => id !== action.userId)
             }
         }
@@ -90,6 +85,8 @@ const usersPageDataReducer = (state = initialState, action: any): InitialStateTy
             return state;
     }
 }
+
+type ActionsTypes = setFollowACType | setUnFollowACType | setUsersACType | setCurrentPageACType | setTotalUsersCountACType | toggleIsFetchingACType | buttonDisableACType
 
 type setFollowACType = { type: typeof FOLLOW, userId: number}
 export const setFollowAC = (userId: number): setFollowACType => ({ type: FOLLOW, userId })
@@ -112,8 +109,9 @@ export const toggleIsFetchingAC = (isFetching: boolean): toggleIsFetchingACType 
 type buttonDisableACType = { type: typeof BUTTON_DISABLE, toggle: boolean, userId: number}
 export const buttonDisableAC = (toggle: boolean, userId: number): buttonDisableACType => ({ type: BUTTON_DISABLE, toggle, userId })
 
-export const setUsersTC = (currentPage: number, pageSize: number) => {
-    return async (dispatch: any) => {
+export const setUsersTC = (currentPage: number, pageSize: number): ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes> => {
+    return async (dispatch, getState) => {
+
         dispatch(toggleIsFetchingAC(true))
         dispatch(setCurrentPageAC(currentPage))
         let response = await API.getUsers(currentPage, pageSize)
@@ -125,19 +123,19 @@ export const setUsersTC = (currentPage: number, pageSize: number) => {
 
 
 export const unFollowTC = (userId: number) => {
-    return async (dispatch: any) => {
+    return async (dispatch: Dispatch<ActionsTypes>) => {
         dispatch(buttonDisableAC(true, userId))
         let response = await API.getUnFollow(userId)
-        if (response.resultCode === 0) { dispatch(setUnFollowAC(userId)) }
+        if (response.resultCode === ResultCodesEnum.Success) { dispatch(setUnFollowAC(userId)) }
         dispatch(buttonDisableAC(false, userId))
     }
 }
 
 export const followTC = (userId: number) => {
-    return async (dispatch: any) => {
+    return async (dispatch: Dispatch<ActionsTypes>) => {
         dispatch(buttonDisableAC(true, userId))
         let response = await API.getFollow(userId)
-        if (response.resultCode === 0) { dispatch(setFollowAC(userId)) }
+        if (response.resultCode === ResultCodesEnum.Success) { dispatch(setFollowAC(userId)) }
         dispatch(buttonDisableAC(false, userId))
     }
 }

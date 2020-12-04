@@ -1,7 +1,7 @@
 .app{
   background-color: #ecf0f1;  
 }
-.app-wrapper {
+.app_wrapper {
   float: center;
   margin: auto;
   padding: 20px;
@@ -18,7 +18,7 @@
   
 }
 
-.app-wrapper-content {
+.app_wrapper_content {
   grid-area: content;
   background-color: white;
   padding: 20px;

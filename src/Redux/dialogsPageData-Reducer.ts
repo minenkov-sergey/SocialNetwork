@@ -28,7 +28,7 @@ let initialState = {
 
 const ADD_MESSAGE = 'dialogsPageData-Reducer/ADD_MESSAGE'
 
-const dialogsPageDataReducer = (state = initialState, action: any): InitialStateType => {
+const dialogsPageDataReducer = (state = initialState, action: addMessageACType): InitialStateType => {
     switch (action.type) {
         case ADD_MESSAGE: {
             let idLengthArray = state.messagesData.length + 1

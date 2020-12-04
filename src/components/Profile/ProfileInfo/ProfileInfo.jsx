@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './ProfileInfo.module.css';
 import Preloader from '../../common/Preloader'
-import ProfileStatusHooks from './ProfileStatusHooks'
+import ProfileStatus from './ProfileStatus'
 import vkLogo from './../../../assets/ProfilePage/vkLogo.png'
 import facebookLogo from './../../../assets/ProfilePage/facebookLogo.png'
 import twitterLogo from './../../../assets/ProfilePage/twitterLogo.png'
@@ -54,7 +54,7 @@ const ProfileInfo = (props) => {
           </label>
         </div> : null}
       <div>
-        <b>Статус:</b><ProfileStatusHooks status={props.status} updateStatus={props.updateStatus} />
+        <b>Статус:</b><ProfileStatus status={props.status} updateStatus={props.updateStatus} />
       </div>
       {toggle ?
         <ProfileDataReduxForm initialValues={props.userProfile} editModeToggle={editModeToggle} onSubmit={onSubmit} />

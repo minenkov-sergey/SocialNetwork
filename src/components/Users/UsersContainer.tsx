@@ -4,25 +4,46 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import Users from './Users'
 import Preloader from '../common/Preloader'
-import { setUsersTC, followTC, unFollowTC, setCurrentPageAC, buttonDisableAC } from '../../Redux/usersPageData-Reducer';
+import { setUsersTC, followTC, unFollowTC } from '../../Redux/usersPageData-Reducer';
 import { getPageSize, getTotalUsersCount, getCurrentPage, getStatusIsFetching, getButtonStatus, getUsersDataSuperSelector } from '../../Redux/selectors/usersPageData-selectors';
 import { withAuthRedirect } from '../../hoc/withAuthRedirect';
+import { UserType } from '../../types/types'
+import { AppStateType } from '../../Redux/redux-store'
 
+type MapStatePropsType = {
+    currentPage: number
+    pageSize: number
+    isFetching: boolean
+    totalUsersCount: number
+    users: Array<UserType>
+    isButtonDisabled: Array<number>
+}
 
-const UsersComponent = (props) => {
+type MapDispatchPropsType = {
+    unfollowButton: (userId:number) => void
+    followButton: (userId:number) => void
+    setUsers: (currentPage: number, pageSize: number) => void
+}
+
+type OwnPropsType = {
+}
+
+type PropsType = MapStatePropsType & MapDispatchPropsType & OwnPropsType
+    
+const UsersContainer: React.FC<PropsType> = (props) => {
 
     useEffect ( () => {
         props.setUsers(props.currentPage, props.pageSize)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
     },[])
 
-    const onClickPage = (pageNumber) => {
+    const onClickPage = (pageNumber: number) => {
         props.setUsers(pageNumber, props.pageSize)
     }
         return (<>
-            {props.isFetching === true ? <Preloader /> : null}
+            {props.isFetching? <Preloader /> : null}
 
-            <Users totalUsersCount={props.totalItemsCount}
+            <Users totalUsersCount={props.totalUsersCount}
                 pageSize={props.pageSize}
                 currentPage={props.currentPage}
                 users={props.users}
@@ -31,32 +52,25 @@ const UsersComponent = (props) => {
                 onClickPage={onClickPage}
                 isButtonDisabled={props.isButtonDisabled}
             />
-        </>
+            </>
         )
     }
 
 
-let mapStatetoProps = (state) => {
+let mapStatetoProps = (state: AppStateType): MapStatePropsType => {
     return {
         users: getUsersDataSuperSelector(state),
         pageSize: getPageSize(state),
-        totalItemsCount: getTotalUsersCount(state),
+        totalUsersCount: getTotalUsersCount(state),
         currentPage: getCurrentPage(state),
         isFetching: getStatusIsFetching(state),
         isButtonDisabled: getButtonStatus(state)
     }
 }
-let mapDispatchToProps = (dispatch) => {
-    return {
-        followButton: followTC,
-        unfollowButton: unFollowTC,
-        setPage: setCurrentPageAC,
-        buttonDisable: buttonDisableAC,
-        setUsers: setUsersTC
-    }
-}
 
 export default compose(
     withAuthRedirect,
-    (connect(mapStatetoProps, mapDispatchToProps()))
-)(UsersComponent)
+    (connect<MapStatePropsType, MapDispatchPropsType, OwnPropsType, AppStateType>(mapStatetoProps, {followButton: followTC,
+        unfollowButton: unFollowTC,
+        setUsers: setUsersTC})
+)(UsersContainer))

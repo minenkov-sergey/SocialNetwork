@@ -19,10 +19,18 @@ export type PhotosType = {
 }
 
  export type ProfileType = {
-    userId: Number
+    userId: Number | null
     lookingForAJob: Boolean
     lookingForAJobDescription: String
     fullName: string
     contacts: ContactsType
     photos: PhotosType
+}
+
+export type UserType = {
+    id: number
+    name: string
+    status: string | null
+    photos: PhotosType
+    followed: boolean
 }
